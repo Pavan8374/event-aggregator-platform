@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  apigateway:
+    image: apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - eventservice
+      - identityservice
+
+  eventservice:
+    image: eventservice
+    build:
+      context: .
+      dockerfile: EventService/Dockerfile
+    ports:
+      - "8001:80"
+
+  identityservice:
+    image: identityservice
+    build:
+      context: .
+      dockerfile: IdentityService/Dockerfile
+    ports:
+      - "8002:80"

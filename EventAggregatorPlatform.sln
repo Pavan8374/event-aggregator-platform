@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "src\Services\IdentityService\IdentityService\IdentityService.csproj", "{E4604C56-303B-4E49-AA44-8A81CAEC3638}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistrationService", "src\Services\RegistrationService\RegistrationService\RegistrationService.csproj", "{3A3E09F0-47CC-4A93-A71E-896B432677A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventService", "src\Services\EventService\EventService\EventService.csproj", "{31157D00-8165-4080-B391-0CB9819D04FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsService", "src\Services\AnalyticsService\AnalyticsService\AnalyticsService.csproj", "{6842AC38-1294-40E8-A402-FBCADF9745EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared\Shared.csproj", "{D4F091AE-9623-42CE-8BB0-ACD55788ECA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "src\APIGateway\ApiGateway\ApiGateway.csproj", "{7A3743C8-58B2-4D32-B2F6-7AD890E8B51B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "src\Services\NotificationService\NotificationService\NotificationService.csproj", "{3A3781B5-235F-4AF3-9C50-40E737BBB5DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4604C56-303B-4E49-AA44-8A81CAEC3638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4604C56-303B-4E49-AA44-8A81CAEC3638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4604C56-303B-4E49-AA44-8A81CAEC3638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4604C56-303B-4E49-AA44-8A81CAEC3638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A3E09F0-47CC-4A93-A71E-896B432677A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3E09F0-47CC-4A93-A71E-896B432677A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3E09F0-47CC-4A93-A71E-896B432677A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3E09F0-47CC-4A93-A71E-896B432677A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31157D00-8165-4080-B391-0CB9819D04FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31157D00-8165-4080-B391-0CB9819D04FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31157D00-8165-4080-B391-0CB9819D04FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31157D00-8165-4080-B391-0CB9819D04FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6842AC38-1294-40E8-A402-FBCADF9745EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6842AC38-1294-40E8-A402-FBCADF9745EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6842AC38-1294-40E8-A402-FBCADF9745EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6842AC38-1294-40E8-A402-FBCADF9745EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4F091AE-9623-42CE-8BB0-ACD55788ECA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4F091AE-9623-42CE-8BB0-ACD55788ECA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4F091AE-9623-42CE-8BB0-ACD55788ECA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4F091AE-9623-42CE-8BB0-ACD55788ECA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3743C8-58B2-4D32-B2F6-7AD890E8B51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3743C8-58B2-4D32-B2F6-7AD890E8B51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3743C8-58B2-4D32-B2F6-7AD890E8B51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3743C8-58B2-4D32-B2F6-7AD890E8B51B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A3781B5-235F-4AF3-9C50-40E737BBB5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3781B5-235F-4AF3-9C50-40E737BBB5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3781B5-235F-4AF3-9C50-40E737BBB5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3781B5-235F-4AF3-9C50-40E737BBB5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
