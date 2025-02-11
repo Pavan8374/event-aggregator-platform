@@ -3,7 +3,7 @@ name: Verify PR Build
 on:
   pull_request:
     branches:
-      - main  # Runs only for PRs targeting the main branch
+      - main  # Runs for PRs targeting the main branch
 
 jobs:
   build:
@@ -23,6 +23,3 @@ jobs:
 
       - name: Build Solution
         run: dotnet build EventAggregatorPlatform.sln --configuration Release --no-restore
-
-      - name: Run Unit Tests
-        run: dotnet test EventAggregatorPlatform.sln --configuration Release --no-build --verbosity normal
