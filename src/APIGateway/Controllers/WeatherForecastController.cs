@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace NotificationService.Controllers
+namespace ApiGateway.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -18,10 +18,6 @@ namespace NotificationService.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Get
-        /// </summary>
-        /// <returns></returns>
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
