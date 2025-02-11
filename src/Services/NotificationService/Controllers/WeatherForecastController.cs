@@ -21,7 +21,7 @@ namespace NotificationService.Controllers
         /// <summary>
         /// Get method
         /// </summary>
-        /// <returns>array</returns>
+        /// <returns>array ds</returns>
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
