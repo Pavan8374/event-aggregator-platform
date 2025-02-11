@@ -1,0 +1,32 @@
+name: Verify PR Build
+
+on:
+  pull_request:
+    branches:
+      - main  # Runs only for PRs targeting main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 9 SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Enable Docker BuildKit
+        run: |
+          export DOCKER_BUILDKIT=1
+          export COMPOSE_DOCKER_CLI_BUILD=1
+
+      - name: Build and Verify Services
+        run: |
+          docker-compose -f infrastructure/docker-compose.yml up --build --no-start
+          echo "✅ All services built successfully!"
+
+      - name: Clean Up Docker (Optional)
+        run: docker-compose down
