@@ -1,4 +1,5 @@
 name: Verify PR Build
+
 on:
   pull_request:
     branches:
@@ -7,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -16,26 +18,8 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Restore Dependencies
+        run: dotnet restore EventAggregatorPlatform.sln
 
-      - name: Install Docker Compose V2
-        run: |
-          DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-          mkdir -p $DOCKER_CONFIG/cli-plugins
-          curl -SL https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-          chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
-
-      - name: Set up Docker BuildKit
-        run: |
-          echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
-          echo "COMPOSE_DOCKER_CLI_BUILD=1" >> $GITHUB_ENV
-
-      - name: Build and Verify Services
-        run: |
-          docker compose -f infrastructure/docker-compose.yml up --build --no-start
-          echo "✅ All services built successfully!"
-
-      - name: Clean Up Docker
-        if: always()  # This ensures cleanup runs even if previous steps fail
-        run: docker compose -f infrastructure/docker-compose.yml down
+      - name: Build Solution
+        run: dotnet build EventAggregatorPlatform.sln --configuration Release --no-restore
