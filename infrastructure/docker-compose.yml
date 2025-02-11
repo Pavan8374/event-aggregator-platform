@@ -2,28 +2,74 @@ version: '3.8'
 
 services:
   apigateway:
-    image: apigateway
+    container_name: apigateway
     build:
-      context: .
-      dockerfile: ApiGateway/Dockerfile
+      context: ..  # Update to match actual folder
+      dockerfile: src/ApiGateway/Dockerfile
+    image: apigateway
     ports:
       - "8000:80"
     depends_on:
       - eventservice
       - identityservice
-
-  eventservice:
-    image: eventservice
-    build:
-      context: .
-      dockerfile: EventService/Dockerfile
-    ports:
-      - "8001:80"
+    networks:
+      - backend
 
   identityservice:
-    image: identityservice
+    container_name: identityservice
     build:
-      context: .
-      dockerfile: IdentityService/Dockerfile
+      context: ..  # Change this to point to the root folder
+      dockerfile: src/Services/IdentityService/Dockerfile
+    image: identityservice
     ports:
       - "8002:80"
+    networks:
+      - backend
+
+  eventservice:
+    container_name: eventservice
+    build:
+      context: ..  # Correct path
+      dockerfile: src/Services/EventService/Dockerfile
+    image: eventservice
+    ports:
+      - "8001:80"
+    networks:
+      - backend
+
+  registrationservice:
+    container_name: registrationservice
+    build:
+      context: ..  # Correct path
+      dockerfile: src/Services/RegistrationService/Dockerfile
+    image: registrationservice
+    ports:
+      - "8003:80"
+    networks:
+      - backend
+
+  notificationservice:
+    container_name: notificationservice
+    build:
+      context: ..  # Correct path
+      dockerfile: src/Services/NotificationService/Dockerfile
+    image: notificationservice
+    ports:
+      - "8004:80"
+    networks:
+      - backend
+
+  analyticsservice:
+    container_name: analyticsservice
+    build:
+      context: ..  # Correct path
+      dockerfile: src/Services/AnalyticsService/Dockerfile
+    image: analyticsservice
+    ports:
+      - "8005:80"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
