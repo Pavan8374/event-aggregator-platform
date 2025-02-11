@@ -3,7 +3,7 @@ name: Verify PR Build
 on:
   pull_request:
     branches:
-      - main  # Runs only for PRs targeting main branch
+      - main  # Runs only for PRs targeting the main branch
 
 jobs:
   build:
@@ -18,23 +18,15 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Install Docker & Docker Compose
+      - name: Set up Docker BuildKit (Optional)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose version  # Verify installation
-
-      - name: Enable Docker BuildKit
-        run: |
-          export DOCKER_BUILDKIT=1
-          export COMPOSE_DOCKER_CLI_BUILD=1
+          echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+          echo "COMPOSE_DOCKER_CLI_BUILD=1" >> $GITHUB_ENV
 
       - name: Build and Verify Services
         run: |
-          docker-compose -f infrastructure/docker-compose.yml up --build --no-start
+          docker compose -f infrastructure/docker-compose.yml up --build --no-start
           echo "✅ All services built successfully!"
 
       - name: Clean Up Docker (Optional)
-        run: docker-compose down
+        run: docker compose down
