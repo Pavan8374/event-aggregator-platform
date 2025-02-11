@@ -1,22 +1,32 @@
-name: Verify PR Build
+name: CI - Build .NET 9 Solution
 
 on:
+  push:
+    branches:
+      - main
+      - develop
   pull_request:
     branches:
-      - main  # Runs for PRs targeting the main branch
+      - main
+      - develop
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up .NET 9 SDK
+      - name: Get Latest .NET 9 SDK Version
+        run: |
+          LATEST_DOTNET_VERSION=$(curl -s https://dotnetcli.azureedge.net/dotnet/release-metadata/9.0/releases.json | jq -r '.releases[0].latestSdk')
+          echo "LATEST_DOTNET_VERSION=$LATEST_DOTNET_VERSION" >> $GITHUB_ENV
+
+      - name: Setup .NET 9
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: ${{ env.LATEST_DOTNET_VERSION }}
 
       - name: Restore Dependencies
         run: dotnet restore EventAggregatorPlatform.sln
