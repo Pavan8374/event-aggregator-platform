@@ -19,7 +19,7 @@ namespace NotificationService.Controllers
         }
 
         /// <summary>
-        /// Get
+        /// Get method
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetWeatherForecast")]
