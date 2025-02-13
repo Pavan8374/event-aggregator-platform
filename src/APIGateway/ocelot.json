@@ -47,6 +47,21 @@
 
     //Registration service
     {
+      "DownstreamPathTemplate": "/greet.Greeter/SayHello",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "registrationservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/greet",
+      "UpstreamHttpMethod": [ "Post" ],
+      "Grpc": {
+        "IsGrpc": true
+      }
+    },
+    {
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
