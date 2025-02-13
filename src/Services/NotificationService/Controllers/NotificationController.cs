@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityService.Controllers
+namespace NotificationService.Controllers
 {
     [ApiController]
-    [Route("identity")]  // Changed to lowercase to match Ocelot configuration
-    public class IdentityController : ControllerBase
+    [Route("notification")]  // Changed to lowercase to match Ocelot configuration
+    public class NotificationController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<IdentityController> _logger;
+        private readonly ILogger<NotificationController> _logger;
 
-        public IdentityController(ILogger<IdentityController> logger)
+        public NotificationController(ILogger<NotificationController> logger)
         {
             _logger = logger;
         }

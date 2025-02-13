@@ -4,11 +4,11 @@ services:
   apigateway:
     container_name: apigateway
     build:
-      context: ..  # Update to match actual folder
+      context: ..  
       dockerfile: src/ApiGateway/Dockerfile
     image: apigateway
     ports:
-      - "8000:80"
+      - "8000:8080"
     depends_on:
       - eventservice
       - identityservice
@@ -18,58 +18,59 @@ services:
   identityservice:
     container_name: identityservice
     build:
-      context: ..  # Change this to point to the root folder
+      context: ..  
       dockerfile: src/Services/IdentityService/Dockerfile
     image: identityservice
     ports:
-      - "8002:80"
+      - "8002:8080"
     networks:
       - backend
 
   eventservice:
     container_name: eventservice
     build:
-      context: ..  # Correct path
+      context: .. 
       dockerfile: src/Services/EventService/Dockerfile
     image: eventservice
     ports:
-      - "8001:80"
+      - "8001:8080"
     networks:
       - backend
 
   registrationservice:
     container_name: registrationservice
     build:
-      context: ..  # Correct path
+      context: ..  
       dockerfile: src/Services/RegistrationService/Dockerfile
     image: registrationservice
     ports:
-      - "8003:80"
+      - "8003:8080"
     networks:
       - backend
 
   notificationservice:
     container_name: notificationservice
     build:
-      context: ..  # Correct path
+      context: ..  
       dockerfile: src/Services/NotificationService/Dockerfile
     image: notificationservice
     ports:
-      - "8004:80"
+      - "8004:8080"
     networks:
       - backend
 
   analyticsservice:
     container_name: analyticsservice
     build:
-      context: ..  # Correct path
+      context: .. 
       dockerfile: src/Services/AnalyticsService/Dockerfile
     image: analyticsservice
     ports:
-      - "8005:80"
+      - "8005:8080"
     networks:
       - backend
 
 networks:
   backend:
+    name: backend
     driver: bridge
