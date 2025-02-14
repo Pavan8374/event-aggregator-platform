@@ -1,6 +1,6 @@
 # Event Aggregator Platform
 
-![Event Aggregator Platform](https://github.com/Pavan8374/event-aggregator-platform/raw/main/assets/banner.png)  
+![Event Aggregator Platform](https://imagekit.io/tools/asset-public-link?detail=%7B%22name%22%3A%22ArchitectureFlow.png%22%2C%22type%22%3A%22image%2Fpng%22%2C%22signedurl_expire%22%3A%222028-02-14T06%3A29%3A39.139Z%22%2C%22signedUrl%22%3A%22https%3A%2F%2Fmedia-hosting.imagekit.io%2F%2F437aa988320a41e8%2FArchitectureFlow.png%3FExpires%3D1834122579%26Key-Pair-Id%3DK2ZIVPTIP2VGHC%26Signature%3Dv-iN12AEjUAs6p~it1r4TbuJfeuaFMQxh8nV8e5TkYM-HQpn5glqOigGo3fQKtF3jpafqzeoyhyhfvosD4fs2lGQp2K9qHroAzToz6wa3NB2LAdI26GwpdYlI5rBAxprymMVYxGUdhvtjo-awiKOAny2~RkKNZFrsiPieOkzNEG9gJr5bp2GCecef-cDFimGTHdSv82wATSA03KGoE~jTIm6Stc5a18qUX3b7chzhANK1MVSK1TuHkhDXu-Pj63R1R6ol02RCVo134JMqfMndoJdXrcYXZaodOe7H4sxHJgOBORuBaz4V7MvEeaphK13BIF8LRpKkmE-cVykE68uYQ__%22%7D)  
 *A scalable microservices-based event management platform*
 
 ## 🚀 Overview
