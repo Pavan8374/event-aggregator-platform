@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -20,6 +21,14 @@ public class Program
         // Add Ocelot
         builder.Services.AddOcelot(builder.Configuration);
 
+        builder.WebHost.ConfigureKestrel(options =>
+        {
+            options.ListenAnyIP(8000, listenOptions =>
+            {
+                listenOptions.Protocols = HttpProtocols.Http2; // Force HTTP/2
+            });
+        });
+
         // Add CORS
         builder.Services.AddCors(options =>
         {
@@ -32,7 +41,7 @@ public class Program
         });
 
         var app = builder.Build();
-
+        app.UseRouting();
         // Enable CORS
         app.UseCors("AllowAll");
 
