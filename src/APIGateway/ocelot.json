@@ -1,8 +1,9 @@
 ﻿{
   "GlobalConfiguration": {
-    "BaseUrl": "http://apigateway",
+    "BaseUrl": "http://localhost:8000",
     "UseServiceDiscovery": false,
-    "DownstreamScheme": "http"
+    "DownstreamScheme": "http",
+    "RequestIdKey": "RequestId"
   },
   "Routes": [
     //Identity service

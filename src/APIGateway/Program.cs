@@ -23,9 +23,9 @@ public class Program
 
         builder.WebHost.ConfigureKestrel(options =>
         {
-            options.ListenAnyIP(8000, listenOptions =>
+            options.ListenAnyIP(8080, listenOptions =>
             {
-                listenOptions.Protocols = HttpProtocols.Http2; // Force HTTP/2
+                listenOptions.Protocols = HttpProtocols.Http1AndHttp2; // Force HTTP/2
             });
         });
 
@@ -41,9 +41,16 @@ public class Program
         });
 
         var app = builder.Build();
+
         app.UseRouting();
         // Enable CORS
         app.UseCors("AllowAll");
+
+        app.Use(async (context, next) =>
+        {
+            context.Request.EnableBuffering();
+            await next();
+        });
 
         // Configure Ocelot
         await app.UseOcelot();
