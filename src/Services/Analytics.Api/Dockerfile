@@ -12,19 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Services/NotificationService/NotificationService.csproj", "src/Services/NotificationService/"]
-RUN dotnet restore "src/Services/NotificationService/NotificationService.csproj"
+COPY ["src/Services/Analytics.Api/Analytics.Api.csproj", "src/Services/Analytics.Api/"]
+RUN dotnet restore "src/Services/Analytics.Api/Analytics.Api.csproj"
 COPY . .
-WORKDIR "/src/src/Services/NotificationService"
-RUN dotnet build "NotificationService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/Services/Analytics.Api"
+RUN dotnet build "Analytics.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "NotificationService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Analytics.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "NotificationService.dll"]
+ENTRYPOINT ["dotnet", "Analytics.Api.dll"]
