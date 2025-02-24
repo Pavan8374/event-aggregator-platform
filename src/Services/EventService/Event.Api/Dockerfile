@@ -2,7 +2,7 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-#USER $APP_UID
+USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -12,19 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Services/Notification.Api/Notification.Api.csproj", "src/Services/Notification.Api/"]
-RUN dotnet restore "src/Services/Notification.Api/Notification.Api.csproj"
+COPY ["src/Services/EventService/Event.Api/Event.Api.csproj", "src/Services/EventService/Event.Api/"]
+RUN dotnet restore "src/Services/EventService/Event.Api/Event.Api.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Notification.Api"
-RUN dotnet build "Notification.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/Services/EventService/Event.Api"
+RUN dotnet build "Event.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Notification.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Event.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Notification.Api.dll"]
+ENTRYPOINT ["dotnet", "Event.Api.dll"]

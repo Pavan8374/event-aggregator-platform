@@ -12,19 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Services/Identity.Api/Identity.Api.csproj", "src/Services/Identity.Api/"]
-RUN dotnet restore "src/Services/Identity.Api/Identity.Api.csproj"
+COPY ["src/Services/RegistrationService/Registration.Api/Registration.Api.csproj", "src/Services/RegistrationService/Registration.Api/"]
+RUN dotnet restore "src/Services/RegistrationService/Registration.Api/Registration.Api.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Identity.Api"
-RUN dotnet build "Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/Services/RegistrationService/Registration.Api"
+RUN dotnet build "Registration.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Registration.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Identity.Api.dll"]
+ENTRYPOINT ["dotnet", "Registration.Api.dll"]

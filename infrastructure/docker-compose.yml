@@ -19,7 +19,7 @@ services:
     container_name: identityservice
     build:
       context: ..  
-      dockerfile: src/Services/Identity.Api/Dockerfile
+      dockerfile: src/Services/IdentityService/Identity.Api/Dockerfile
     image: identityservice
     ports:
       - "8002:8080"
@@ -30,7 +30,7 @@ services:
     container_name: eventservice
     build:
       context: .. 
-      dockerfile: src/Services/Event.Api/Dockerfile
+      dockerfile: src/Services/EventService/Event.Api/Dockerfile
     image: eventservice
     ports:
       - "8001:8080"
@@ -41,7 +41,7 @@ services:
     container_name: registrationservice
     build:
       context: ..  
-      dockerfile: src/Services/Registration.Api/Dockerfile
+      dockerfile: src/Services/RegistrationService/Registration.Api/Dockerfile
     image: registrationservice
     ports:
       - "8003:8080"
@@ -52,7 +52,7 @@ services:
     container_name: notificationservice
     build:
       context: ..  
-      dockerfile: src/Services/Notification.Api/Dockerfile
+      dockerfile: src/Services/NotificationService/Notification.Api/Dockerfile
     image: notificationservice
     ports:
       - "8004:8080"
@@ -63,7 +63,7 @@ services:
     container_name: analyticsservice
     build:
       context: .. 
-      dockerfile: src/Services/Analytics.Api/Dockerfile
+      dockerfile: src/Services/AnalyticsService/Analytics.Api/Dockerfile
     image: analyticsservice
     ports:
       - "8005:8080"
