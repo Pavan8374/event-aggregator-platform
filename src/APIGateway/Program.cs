@@ -80,6 +80,7 @@ public class Program
             });
         });
 
+
         // Add CORS
         builder.Services.AddCors(options =>
         {
