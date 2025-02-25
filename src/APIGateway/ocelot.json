@@ -20,6 +20,30 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
+      "DownstreamPathTemplate": "/identity/auth/siginup",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/auth/siginup",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/identity/auth/siginin",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/auth/siginin",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
       "DownstreamPathTemplate": "/identity/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
