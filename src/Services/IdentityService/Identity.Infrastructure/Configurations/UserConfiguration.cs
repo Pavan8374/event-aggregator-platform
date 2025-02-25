@@ -8,8 +8,10 @@ namespace Identity.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            // Primary key
             builder.HasKey(u => u.Id);
 
+            // Basic properties
             builder.Property(u => u.FirstName)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -18,6 +20,7 @@ namespace Identity.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(100);
 
+            // Email value object
             builder.OwnsOne(u => u.Email, email =>
             {
                 email.Property(e => e.Value)
@@ -29,6 +32,7 @@ namespace Identity.Infrastructure.Configurations
                     .IsUnique();
             });
 
+            // Password value object
             builder.OwnsOne(u => u.Password, password =>
             {
                 password.Property(p => p.Hash)
@@ -41,6 +45,25 @@ namespace Identity.Infrastructure.Configurations
                     .IsRequired()
                     .HasMaxLength(256);
             });
+
+            // Role relationship
+            builder.Property(u => u.RoleId)
+                .IsRequired();
+
+            builder.HasOne<Role>()
+                .WithMany()
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascade delete
+
+            // Additional indexes for better performance
+            builder.HasIndex(u => u.LastLoginAt);
+            builder.HasIndex(u => u.CreatedAt);
+            builder.HasIndex(u => u.IsActive);
+
+            // Default Attendee role
+            // This uses the same deterministic GUID from the RoleConfiguration
+            builder.Property(u => u.RoleId)
+                .HasDefaultValue(Guid.Parse("e8311047-8829-4aa0-9d4a-39006e8e01c8"));  // Attendee role ID
         }
     }
 }

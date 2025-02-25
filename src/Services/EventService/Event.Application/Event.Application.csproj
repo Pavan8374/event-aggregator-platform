@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Event.Domain\Event.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="DomainEventHandlers\" />
+    <Folder Include="Queries\Events\" />
+  </ItemGroup>
+
 </Project>

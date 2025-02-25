@@ -1,23 +1,22 @@
-﻿using Identity.Domain.Common;
-using Identity.Domain.Entities;
+﻿using Event.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Identity.Infrastructure
+namespace Event.Infrastructure
 {
-    public class IdentityDbContext : DbContext
+    public class EventDbContext: DbContext
     {
-        public DbSet<User> Users { get; set; }
 
-        public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
+        public DbSet<Event.Domain.Entities.Event> Events { get; set; }
+        public EventDbContext(DbContextOptions<EventDbContext> options) : base(options)
         {
+                
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfigurationsFromAssembly(
-               Assembly.GetAssembly(typeof(IdentityDbContext)));
+               Assembly.GetAssembly(typeof(EventDbContext)));
             modelBuilder.Ignore<DomainEvent>();
         }
     }

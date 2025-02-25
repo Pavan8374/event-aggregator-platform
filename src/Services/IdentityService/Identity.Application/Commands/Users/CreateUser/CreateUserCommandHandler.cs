@@ -32,12 +32,14 @@ namespace Identity.Application.Commands.Users.CreateUser
                 if (existingUser != null)
                     return Result.Failure<AuthResponseDto>("User with this email already exists");
 
+                Guid roleId = Guid.NewGuid(); //need to set default roles
                 // Create new user
                 var user = User.Create(
                     request.FirstName,
                     request.LastName,
                     request.Email,
-                    request.Password
+                    request.Password,
+                    roleId
                 );
 
                 // Save to repository

@@ -1,15 +1,13 @@
-﻿using Identity.Domain.Events.Common;
-using Identity.Domain.Interfaces;
-using Identity.Domain.Interfaces.Common;
-using Identity.Infrastructure.Context;
-using Identity.Infrastructure.Data;
-using Identity.Infrastructure.Repositories;
-using Identity.Infrastructure.Services;
+﻿using Event.Domain.Events.Common;
+using Event.Domain.Interfaces.Common;
+using Event.Infrastructure.Context;
+using Event.Infrastructure.Data;
+using Event.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Identity.Infrastructure.Extensions
+namespace Event.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -19,13 +17,13 @@ namespace Identity.Infrastructure.Extensions
             services.AddScoped<IExecutionContextAccessor, ExecutionContextAccessor>();
 
             var connection = configuration.GetConnectionString("DefaultConnectionString");
-            services.AddDbContext<IdentityDbContext>(options =>
+            services.AddDbContext<EventDbContext>(options =>
                 options.UseNpgsql(connection, o => o.EnableRetryOnFailure(3))
                        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            //services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
