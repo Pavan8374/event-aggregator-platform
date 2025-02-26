@@ -8,12 +8,12 @@ namespace Event.Domain.Entities
     public class Event : AggregateRoot
     {
         // Properties
-        public EventTitle Title { get; private set; }
-        public EventDescription Description { get; private set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
         public EventCategory Category { get; private set; }
-        public OrganizerId OrganizerId { get; private set; }
-        public OrganizerName OrganizerName { get; private set; }
-        public Venue Venue { get; private set; }
+        public Guid OrganizerId { get; private set; }
+        public string OrganizerName { get; private set; }
+        public string Venue { get; private set; }
         public EventTimeRange TimeRange { get; private set; }
         public Capacity Capacity { get; private set; }
         public Money TicketPrice { get; private set; }
@@ -27,12 +27,12 @@ namespace Event.Domain.Entities
         private Event() { }
 
         public static Event Create(
-            EventTitle title,
-            EventDescription description,
+            string title,
+            string description,
             EventCategory category,
-            OrganizerId organizerId,
-            OrganizerName organizerName,
-            Venue venue,
+            Guid organizerId,
+            string organizerName,
+            string venue,
             EventTimeRange timeRange,
             Capacity capacity,
             Money ticketPrice,
@@ -58,16 +58,16 @@ namespace Event.Domain.Entities
                 UpdatedAt = DateTime.UtcNow
             };
 
-            @event.AddDomainEvent(new EventCreatedDomainEvent(@event.Id, @event.OrganizerId.Value));
+            @event.AddDomainEvent(new EventCreatedDomainEvent(@event.Id, @event.OrganizerId));
             return @event;
         }
 
         // Domain behaviors
         public void UpdateDetails(
-            EventTitle title,
-            EventDescription description,
+            string title,
+            string description,
             EventCategory category,
-            Venue venue,
+            string venue,
             EventTimeRange timeRange,
             Capacity capacity,
             Money ticketPrice,
@@ -92,7 +92,7 @@ namespace Event.Domain.Entities
             AddDomainEvent(new EventUpdatedDomainEvent(Id));
         }
 
-        public void UpdateOrganizerName(OrganizerName organizerName)
+        public void UpdateOrganizerName(string organizerName)
         {
             OrganizerName = organizerName;
             UpdatedAt = DateTime.UtcNow;

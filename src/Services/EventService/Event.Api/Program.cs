@@ -1,49 +1,47 @@
-using EventService.GraphQL.Queries;
-using EventService.GraphQL.Types;
-using EventService.Services;
-using EventService.Services.Interfaces;
-using Microsoft.OpenApi.Models;
+using Event.Api.Extensions;
+using Event.Api.Services.Interfaces;
+using Event.Infrastructure.Extensions;
+using Event.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
+
+builder.Services.AddOpenApi();
+builder.Services.AddSwaggerService();
+builder.Services.AddCors();
+
+// Register Infrastructure Services
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("Event.Application")));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Services.AddEndpointsApiExplorer();
 
 // Register services
 builder.Services.AddScoped<IEventService, EEventService>();
 
 // Add GraphQL services
-builder.Services
-    .AddGraphQLServer()
-    .AddQueryType(d => d.Name("Query"))
-    .AddType<EventQueries>()
-    .AddType<EventType>()
-    .AddFiltering()
-    .AddSorting();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "Event Service API",
-        Version = "v1",
-        Description = "Event Service"
-    });
-});
-
+builder.Services.AddGraphQLServices();
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Event  Service API V1");
-        c.RoutePrefix = "docs";
-    });
-}
-
 app.UseRouting();
+app.UseCors(options =>
+{
+    options
+        .WithOrigins(builder.Configuration.GetValue<string>("AllowedHosts"))
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+});
+app.MapOpenApi();
+app.UseSwagger(); // Load Swagger before auth
+app.UseSwaggerUI();
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 app.MapGraphQL("/graphql");
-
 app.Run();

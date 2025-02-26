@@ -2,6 +2,7 @@
 using Identity.Application.DTOs.Users;
 using Identity.Domain.Common;
 using Identity.Domain.Entities;
+using Identity.Domain.Enumerations;
 using Identity.Domain.Interfaces;
 using Identity.Domain.Interfaces.Common;
 using MediatR;
@@ -32,7 +33,11 @@ namespace Identity.Application.Commands.Users.CreateUser
                 if (existingUser != null)
                     return Result.Failure<AuthResponseDto>("User with this email already exists");
 
-                Guid roleId = Guid.NewGuid(); //need to set default roles
+                int roleId = RoleType.Attendee.Id;
+                string roleName = RoleType.Attendee.ToString();
+                if(request.IsOrganizer)
+                    roleId = RoleType.Organizer.Id;
+                    roleName = RoleType.Organizer.ToString();
                 // Create new user
                 var user = User.Create(
                     request.FirstName,
@@ -46,7 +51,7 @@ namespace Identity.Application.Commands.Users.CreateUser
                 await _userRepository.AddAsync(user);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                var authClaims = JWTService.GetTokenClaims(user.Email.Value, user.Id.ToString(), $"{user.FirstName} {user.LastName}");
+                var authClaims = JWTService.GetTokenClaims(user.Email.Value, user.Id.ToString(), $"{user.FirstName} {user.LastName}", roleName);
 
                 var token = JWTService.GetJWTToken(
                     authClaims,

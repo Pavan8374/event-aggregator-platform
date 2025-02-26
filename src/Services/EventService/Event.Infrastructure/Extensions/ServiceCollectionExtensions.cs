@@ -1,7 +1,11 @@
-﻿using Event.Domain.Events.Common;
+﻿using Event.Domain.Entities;
+using Event.Domain.Events.Common;
+using Event.Domain.Interfaces;
 using Event.Domain.Interfaces.Common;
+using Event.Domain.Services;
 using Event.Infrastructure.Context;
 using Event.Infrastructure.Data;
+using Event.Infrastructure.Repositories;
 using Event.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,9 +25,11 @@ namespace Event.Infrastructure.Extensions
                 options.UseNpgsql(connection, o => o.EnableRetryOnFailure(3))
                        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
+            services.Configure<ImageKitSetting>(configuration.GetSection("ImageKitSetting"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFileStorageService, ImagekitStorageService>();
+            services.AddScoped<IEventRepository, EventRepository>();
 
             return services;
         }

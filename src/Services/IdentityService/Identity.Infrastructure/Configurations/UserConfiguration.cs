@@ -1,4 +1,5 @@
 ﻿using Identity.Domain.Entities;
+using Identity.Domain.Enumerations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -50,11 +51,6 @@ namespace Identity.Infrastructure.Configurations
             builder.Property(u => u.RoleId)
                 .IsRequired();
 
-            builder.HasOne<Role>()
-                .WithMany()
-                .HasForeignKey(u => u.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascade delete
-
             // Additional indexes for better performance
             builder.HasIndex(u => u.LastLoginAt);
             builder.HasIndex(u => u.CreatedAt);
@@ -63,7 +59,7 @@ namespace Identity.Infrastructure.Configurations
             // Default Attendee role
             // This uses the same deterministic GUID from the RoleConfiguration
             builder.Property(u => u.RoleId)
-                .HasDefaultValue(Guid.Parse("e8311047-8829-4aa0-9d4a-39006e8e01c8"));  // Attendee role ID
+                .HasDefaultValue(RoleType.Attendee.Id);  // Attendee role ID
         }
     }
 }

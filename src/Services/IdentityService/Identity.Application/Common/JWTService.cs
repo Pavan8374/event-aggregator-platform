@@ -38,7 +38,7 @@ namespace Identity.Application.Common
         /// <param name="name">Name</param>
         /// <param name="role">Role</param>
         /// <returns>Claims</returns>
-        public static List<Claim> GetTokenClaims(string email, string userId, string name)
+        public static List<Claim> GetTokenClaims(string email, string userId, string name, string role)
         {
             var claims = new List<Claim>
             {
@@ -46,7 +46,7 @@ namespace Identity.Application.Common
                 new Claim(ClaimTypes.NameIdentifier, userId),
                 new Claim(ClaimTypes.GivenName, name ?? string.Empty),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                //new Claim(ClaimTypes.Role, role)
+                new Claim(ClaimTypes.Role, role)
             };
             return claims;
         }

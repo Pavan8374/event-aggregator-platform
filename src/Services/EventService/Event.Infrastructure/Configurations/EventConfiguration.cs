@@ -18,17 +18,11 @@ namespace Event.Infrastructure.Configurations
 
             // Properties
             builder.Property(e => e.Title)
-                .HasConversion(
-                    title => title.Value,
-                    value => EventTitle.Create(value))
                 .HasColumnName("Title")
                 .IsRequired()
                 .HasMaxLength(255);
 
             builder.Property(e => e.Description)
-                .HasConversion(
-                    desc => desc.Value,
-                    value => EventDescription.Create(value))
                 .HasColumnName("Description");
 
             builder.Property(e => e.Category)
@@ -38,23 +32,14 @@ namespace Event.Infrastructure.Configurations
                 .HasMaxLength(50);
 
             builder.Property(e => e.OrganizerId)
-                .HasConversion(
-                    id => id.Value,
-                    value => OrganizerId.From(value))
                 .HasColumnName("OrganizerId")
                 .IsRequired();
 
             builder.Property(e => e.OrganizerName)
-                .HasConversion(
-                    name => name.Value,
-                    value => OrganizerName.Create(value))
                 .HasColumnName("OrganizerName")
                 .HasMaxLength(255);
 
             builder.Property(e => e.Venue)
-                .HasConversion(
-                    venue => venue.Value,
-                    value => Venue.Create(value))
                 .HasColumnName("Venue")
                 .IsRequired()
                 .HasMaxLength(255);
@@ -85,19 +70,19 @@ namespace Event.Infrastructure.Configurations
             builder.OwnsOne(e => e.TicketPrice, price =>
             {
                 price.Property(p => p.Amount)
-                    .HasColumnName("ticket_price")
+                    .HasColumnName("Amount")
                     .HasColumnType("decimal(10,2)")
                     .HasDefaultValue(0.00);
 
                 price.Property(p => p.Currency)
                     .HasConversion(new EnumerationConverter<Currency>())
-                    .HasColumnName("currency")
+                    .HasColumnName("Currency")
                     .HasMaxLength(10)
-                    .HasDefaultValue("INR");
+                    .HasDefaultValueSql("'INR'");
             });
 
             builder.Property(e => e.IsFree)
-                .HasColumnName("is_free")
+                .HasColumnName("IsFree")
                 .HasDefaultValue(false);
 
             builder.Property(e => e.ImageUrl)
@@ -109,7 +94,7 @@ namespace Event.Infrastructure.Configurations
                 .HasColumnName("Status")
                 .IsRequired()
                 .HasMaxLength(20)
-                .HasDefaultValue(EventStatus.Pending.Name);
+                .HasDefaultValueSql("'Pending'");
 
             builder.Property(e => e.CreatedAt)
                 .HasColumnName("CreatedAt")
