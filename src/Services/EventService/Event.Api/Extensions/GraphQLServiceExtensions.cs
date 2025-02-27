@@ -11,15 +11,18 @@ namespace Event.Api.Extensions
             services
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
-                .AddType<EventQueries>()       // Register Queries
-                .AddMutationType<EventMutations>() // Register Mutations
-                .AddType<CreateEventInput>()   // Register Input Types
+                .AddTypeExtension<EventQueries>()
+                .AddMutationType(d => d.Name("Mutation"))
+                .AddTypeExtension<EventMutations>()
                 .AddType<EventType>()
                 .AddFiltering()
                 .AddSorting()
-                // Add these lines for the playground and schema explorer
-                //.AddBananaCakePop()           // Adds Banana Cake Pop UI (HotChocolate's playground)
-                .AddInMemorySubscriptions();   // Add if you plan to use subscriptions
+                .AddProjections()
+                //.ModifyPagingOptions(
+                //)
+                .AddUploadType()  // Add this to support file uploads
+                .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);  // For debugging
+             
             return services;
         }
     }

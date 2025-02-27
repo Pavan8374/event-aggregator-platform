@@ -14,7 +14,7 @@ namespace Event.Api.GraphQL.Types
         public Money TicketPrice { get; set; }
         public bool IsFree { get; set; }
 
-        [GraphQLNonNullType]
+        [GraphQLType(typeof(UploadType))]
         public IFile Thumbnail { get; set; }
     }
 }

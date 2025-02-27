@@ -11,10 +11,19 @@ builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerService();
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 // Register Infrastructure Services
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("Event.Application")));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -29,19 +38,15 @@ builder.Services.AddGraphQLServices();
 
 var app = builder.Build();
 app.UseRouting();
-app.UseCors(options =>
-{
-    options
-        .WithOrigins(builder.Configuration.GetValue<string>("AllowedHosts"))
-        .AllowAnyHeader()
-        .AllowAnyMethod();
-});
+
+app.UseCors();
 app.MapOpenApi();
-app.UseSwagger(); // Load Swagger before auth
+app.UseSwagger(); 
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseWebSockets();  
 app.MapGraphQL("/graphql");
 app.Run();

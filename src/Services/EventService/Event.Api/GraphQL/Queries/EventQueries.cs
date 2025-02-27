@@ -1,5 +1,4 @@
-﻿using Event.Api.Models;
-using Event.Api.Services.Interfaces;
+﻿using Event.Api.Services.Interfaces;
 
 namespace Event.GraphQL.Queries
 {

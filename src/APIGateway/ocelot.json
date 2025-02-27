@@ -67,7 +67,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/events",
-      "UpstreamHttpMethod": [ "Post", "Options" ]
+      "UpstreamHttpMethod": [ "Post", "Options", "Get" ]
     },
 
     //Registration service

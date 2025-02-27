@@ -5,6 +5,7 @@ using MediatR;
 
 namespace Event.Api.GraphQL.Mutations
 {
+    [ExtendObjectType("Mutation")]
     public class EventMutations
     {
         private readonly IMediator _mediator;
