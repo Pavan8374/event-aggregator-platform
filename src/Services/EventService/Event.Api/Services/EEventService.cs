@@ -1,13 +1,13 @@
-﻿using EventService.Models;
-using EventService.Services.Interfaces;
+﻿using Event.Api.Models;
+using Event.Api.Services.Interfaces;
 
-namespace EventService.Services
+namespace Event.Services
 {
     public class EEventService : IEventService
     {
-        private List<Event> events = new List<Event>
+        private List<Event.Api.Models.Event> events = new List<Event.Api.Models.Event>
         {
-            new Event
+            new Event.Api.Models.Event
             {
                 Id = Guid.NewGuid(),
                 Name = "Tech Conference",
@@ -18,7 +18,7 @@ namespace EventService.Services
                 MaxAttendees = 500,
                 Attendees = new List<Attendee>()
             },
-            new Event
+            new Event.Api.Models.Event
             {
                 Id = Guid.NewGuid(),
                 Name = "Art Exhibition",
@@ -31,21 +31,21 @@ namespace EventService.Services
             }
         };
 
-        public Task<Event> GetEventByIdAsync(Guid id)
+        public Task<Event.Api.Models.Event> GetEventByIdAsync(Guid id)
         {
             var eventItem = events.Find(e => e.Id == id);
             return Task.FromResult(eventItem);
         }
 
-        public Task<IEnumerable<Event>> GetEventsAsync()
+        public Task<IEnumerable<Event.Api.Models.Event>> GetEventsAsync()
         {
-            return Task.FromResult<IEnumerable<Event>>(events);
+            return Task.FromResult<IEnumerable<Event.Api.Models.Event>>(events);
         }
 
-        public Task<IEnumerable<Event>> GetEventsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public Task<IEnumerable<Event.Api.Models.Event>> GetEventsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             var filteredEvents = events.FindAll(e => e.StartDate >= startDate && e.EndDate <= endDate);
-            return Task.FromResult<IEnumerable<Event>>(filteredEvents);
+            return Task.FromResult<IEnumerable<Event.Api.Models.Event>>(filteredEvents);
         }
     }
 }

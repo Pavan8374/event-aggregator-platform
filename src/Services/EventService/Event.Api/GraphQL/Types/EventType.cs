@@ -1,10 +1,10 @@
-﻿using EventService.Models;
+﻿using Event.Api.Models;
 
-namespace EventService.GraphQL.Types
+namespace Event.Api.GraphQL.Types
 {
-    public class EventType : ObjectType<Event>
+    public class EventType : ObjectType<Event.Api.Models.Event>
     {
-        protected override void Configure(IObjectTypeDescriptor<Event> descriptor)
+        protected override void Configure(IObjectTypeDescriptor<Event.Api.Models.Event> descriptor)
         {
             descriptor.Description("Represents an event in the system");
 

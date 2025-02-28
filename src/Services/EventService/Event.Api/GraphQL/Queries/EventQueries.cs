@@ -1,7 +1,6 @@
-﻿using EventService.Models;
-using EventService.Services.Interfaces;
+﻿using Event.Api.Services.Interfaces;
 
-namespace EventService.GraphQL.Queries
+namespace Event.GraphQL.Queries
 {
     [ExtendObjectType("Query")]
     public class EventQueries
@@ -14,19 +13,19 @@ namespace EventService.GraphQL.Queries
         }
 
         [GraphQLDescription("Gets all events")]
-        public async Task<IEnumerable<Event>> GetEvents()
+        public async Task<IEnumerable<Event.Api.Models.Event>> GetEvents()
         {
             return await _eventService.GetEventsAsync();
         }
 
         [GraphQLDescription("Gets an event by ID")]
-        public async Task<Event> GetEvent(Guid id)
+        public async Task<Event.Api.Models.Event> GetEvent(Guid id)
         {
             return await _eventService.GetEventByIdAsync(id);
         }
 
         [GraphQLDescription("Gets events by date range")]
-        public async Task<IEnumerable<Event>> GetEventsByDateRange(
+        public async Task<IEnumerable<Event.Api.Models.Event>> GetEventsByDateRange(
             DateTime startDate,
             DateTime endDate)
         {

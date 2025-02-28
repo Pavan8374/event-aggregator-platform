@@ -1,7 +1,7 @@
 ﻿using Identity.Domain.Common;
 using Identity.Domain.Entities;
-using Identity.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Identity.Infrastructure
 {
@@ -9,14 +9,15 @@ namespace Identity.Infrastructure
     {
         public DbSet<User> Users { get; set; }
 
-        public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
-        : base(options)
+        public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            //modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(
+               Assembly.GetAssembly(typeof(IdentityDbContext)));
             modelBuilder.Ignore<DomainEvent>();
         }
     }

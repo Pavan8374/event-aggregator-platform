@@ -1,6 +1,7 @@
 ﻿using Identity.Application.Common;
 using Identity.Application.DTOs.Users;
 using Identity.Domain.Common;
+using Identity.Domain.Enumerations;
 using Identity.Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -22,13 +23,17 @@ namespace Identity.Application.Commands.Users.SigninUser
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
 
+            string roleName = RoleType.Attendee.ToString();
+            if (request.IsOrganizer)
+                roleName = RoleType.Organizer.ToString();
+
             if (!user.Password.VerifyPassword(request.Password))
             {
                 return Result<AuthResponseDto>.Failure("Invalid email or password.");
             }
 
             // Generate JWT Token
-            var authClaims = JWTService.GetTokenClaims(user.Email.Value, user.Id.ToString(), $"{user.FirstName} {user.LastName}");
+            var authClaims = JWTService.GetTokenClaims(user.Email.Value, user.Id.ToString(), $"{user.FirstName} {user.LastName}", roleName);
 
             var token = JWTService.GetJWTToken(
                 authClaims,
