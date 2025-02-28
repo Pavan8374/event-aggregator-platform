@@ -14,10 +14,10 @@ namespace Identity.Domain.Entities
         public DateTime CreatedAt { get; private set; }
         public DateTime? LastLoginAt { get; private set; }
         public bool IsActive { get; private set; }
-
+        public int RoleId { get; private set; }
         private User() { } // For EF Core
 
-        private User(string firstName, string lastName, Email email, Password password)
+        private User(string firstName, string lastName, Email email, Password password, int roleId)
         {
             Id = Guid.NewGuid();
             FirstName = firstName;
@@ -26,17 +26,18 @@ namespace Identity.Domain.Entities
             Password = password;
             CreatedAt = DateTime.UtcNow;
             IsActive = true;
+            RoleId = roleId;
 
             AddDomainEvent(new UserCreatedEvent(Id, Email.Value));
         }
 
 
-        public static User Create(string firstName, string lastName, string email, string password)
+        public static User Create(string firstName, string lastName, string email, string password, int roleId)
         {
             var emailVO = Email.Create(email);
             var passwordVO = Password.Create(password);
 
-            return new User(firstName, lastName, emailVO, passwordVO);
+            return new User(firstName, lastName, emailVO, passwordVO, roleId);
         }
 
         public void UpdateDetails(string firstName, string lastName, string email)
@@ -64,6 +65,16 @@ namespace Identity.Domain.Entities
             Password = Password.Create(newPassword);
 
             //AddDomainEvent(new PasswordChangedEvent(Id)); //need to implement PasswordChangedEvent
+        }
+
+        public void ChangeRole(int roleId)
+        {
+            if (roleId <= 0)
+                throw new DomainException("Invalid role ID");
+
+            RoleId = roleId;
+            // Optionally add domain event for role change
+            // AddDomainEvent(new UserRoleChangedEvent(Id, RoleId));
         }
 
         //public void Deactivate()
