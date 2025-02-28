@@ -33,36 +33,35 @@ namespace Event.Application.Commands.Events.CreateEvent
         {
             try
             {
-                //Create dynamic image urls.
+                // Make sure you await all async operations and pass the cancellation token
                 string imageURL = "";
-                if (request.Thumbnail.Length > 0)
+                if (request.Thumbnail?.Length > 0)
                 {
-                    Stream fileStraem = request.Thumbnail.OpenReadStream();
+                    using Stream fileStream = request.Thumbnail.OpenReadStream();
                     Guid organizerId = _executionContextAccessor.UserId;
                     string folderPath = $"event-management/organizers/{organizerId}/";
-                    imageURL = await _fileStorageService.UploadFileAsync(fileStraem, request.Thumbnail.Name, folderPath);
+                    imageURL = await _fileStorageService.UploadFileAsync(fileStream, request.Thumbnail.Name, folderPath);
                 }
 
-                var newEvent = Event.Domain.Entities.Event.Create
-                    (
-                        request.Title,
-                        request.Description,
-                        request.Category,
-                        _executionContextAccessor.UserId,
-                        _executionContextAccessor.UserName,
-                        request.Venue,
-                        request.TimeRange,
-                        request.Capacity,
-                        request.TicketPrice,
-                        request.IsFree,
-                        imageURL
-                    );
+                var newEvent = Event.Domain.Entities.Event.Create(
+                    request.Title,
+                    request.Description,
+                    request.Category,
+                    _executionContextAccessor.UserId,
+                    _executionContextAccessor.UserName,
+                    request.Venue,
+                    request.TimeRange,
+                    request.Capacity,
+                    request.TicketPrice,
+                    request.IsFree,
+                    imageURL
+                );
+
                 await _eventRepository.AddAsync(newEvent);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
                 return Result.Success(new EventResponseDto() { Id = newEvent.Id });
             }
-
             catch (DomainException ex)
             {
                 return Result.Failure<EventResponseDto>(ex.Message);

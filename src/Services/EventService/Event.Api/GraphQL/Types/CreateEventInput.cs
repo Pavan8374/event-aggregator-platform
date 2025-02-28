@@ -15,6 +15,6 @@ namespace Event.Api.GraphQL.Types
         public bool IsFree { get; set; }
 
         [GraphQLType(typeof(UploadType))]
-        public IFile Thumbnail { get; set; }
+        public IFile? Thumbnail { get; set; }
     }
 }

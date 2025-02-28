@@ -16,8 +16,8 @@ namespace Event.Application.Commands.Events.CreateEvent
         public Money TicketPrice { get; private set; }
         public bool IsFree { get; private set; }
 
-        [GraphQLNonNullType]
-        public IFile Thumbnail { get; private set; }
+        //[GraphQLNonNullType]
+        public IFile? Thumbnail { get; private set; }
 
         public CreateEventCommand(
             string title, string description, EventCategory category,

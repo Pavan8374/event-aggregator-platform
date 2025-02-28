@@ -10,6 +10,7 @@ namespace Event.Api.Extensions
         {
             services
                 .AddGraphQLServer()
+               // .AddAuthorization() // Add this line
                 .AddQueryType(d => d.Name("Query"))
                 .AddTypeExtension<EventQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
@@ -18,11 +19,9 @@ namespace Event.Api.Extensions
                 .AddFiltering()
                 .AddSorting()
                 .AddProjections()
-                //.ModifyPagingOptions(
-                //)
-                .AddUploadType()  // Add this to support file uploads
-                .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);  // For debugging
-             
+                .AddUploadType()
+                .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
+
             return services;
         }
     }

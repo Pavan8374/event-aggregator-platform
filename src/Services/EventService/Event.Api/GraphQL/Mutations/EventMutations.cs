@@ -1,10 +1,13 @@
 ﻿using Event.Api.GraphQL.Types;
 using Event.Application.Commands.Events.CreateEvent;
 using Event.Application.DTOs.Events;
+//using HotChocolate.Authorization;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Event.Api.GraphQL.Mutations
 {
+    [Authorize(Roles = ("Admin, Organizer"))]
     [ExtendObjectType("Mutation")]
     public class EventMutations
     {
@@ -15,7 +18,7 @@ namespace Event.Api.GraphQL.Mutations
             _mediator = mediator;
         }
 
-        public async Task<EventResponseDto> CreateEventAsync(CreateEventInput input, IFile file)
+        public async Task<EventResponseDto> CreateEventAsync(CreateEventInput input)
         {
             var command = new CreateEventCommand(
                 input.Title,
@@ -26,7 +29,8 @@ namespace Event.Api.GraphQL.Mutations
                 input.Capacity,
                 input.TicketPrice,
                 input.IsFree,
-                file // File input
+                input.Thumbnail
+                //file // File input
             );
 
             var result = await _mediator.Send(command);
