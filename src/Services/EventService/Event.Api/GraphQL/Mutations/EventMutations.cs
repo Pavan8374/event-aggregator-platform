@@ -18,7 +18,7 @@ namespace Event.Api.GraphQL.Mutations
             _mediator = mediator;
         }
 
-        public async Task<EventResponseDto> CreateEventAsync(CreateEventInput input)
+        public async Task<EventResponseDto> CreateEventAsync(CreateEventInput input, IFile file)
         {
             var command = new CreateEventCommand(
                 input.Title,
@@ -29,8 +29,8 @@ namespace Event.Api.GraphQL.Mutations
                 input.Capacity,
                 input.TicketPrice,
                 input.IsFree,
-                input.Thumbnail
-                //file // File input
+                //input.Thumbnail
+                file // File input
             );
 
             var result = await _mediator.Send(command);
