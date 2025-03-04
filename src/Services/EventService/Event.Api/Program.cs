@@ -1,8 +1,8 @@
 using Event.Api.Extensions;
 using Event.Api.Services.Interfaces;
 using Event.Application.Commands.Events.CreateEvent;
-using Event.Infrastructure.Extensions;
 using Event.Services;
+using Identity.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
