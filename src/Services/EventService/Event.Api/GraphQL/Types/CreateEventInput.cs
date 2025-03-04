@@ -13,8 +13,5 @@ namespace Event.Api.GraphQL.Types
         public Capacity Capacity { get; set; }
         public Money TicketPrice { get; set; }
         public bool IsFree { get; set; }
-
-        [GraphQLType(typeof(UploadType))]
-        public IFile? Thumbnail { get; set; }
     }
 }
