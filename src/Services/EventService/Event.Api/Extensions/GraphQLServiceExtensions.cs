@@ -15,6 +15,8 @@ namespace Event.Api.Extensions
                 .AddTypeExtension<EventQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
                 .AddTypeExtension<EventMutations>()
+                .AddType<UploadType>()
+                .AddMutationConventions()
                 .AddType<EventType>()
                 .AddFiltering()
                 .AddSorting()

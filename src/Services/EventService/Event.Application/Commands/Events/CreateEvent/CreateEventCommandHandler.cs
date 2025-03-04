@@ -66,6 +66,6 @@ namespace Event.Application.Commands.Events.CreateEvent
             {
                 return Result.Failure<EventResponseDto>(ex.Message);
             }
-        }
+        }    
     }
 }
