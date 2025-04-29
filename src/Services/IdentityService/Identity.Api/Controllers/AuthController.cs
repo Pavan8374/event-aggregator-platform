@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Api.Controllers
 {
+    /// <summary>
+    /// Identity controller
+    /// </summary>
     [ApiController]
     [Route("identity/auth")]
     public class AuthController : ControllerBase
@@ -17,6 +20,11 @@ namespace Identity.Api.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Sign up account
+        /// </summary>
+        /// <param name="command">Create user command</param>
+        /// <returns>Auth responnse dto</returns>
         [HttpPost("signup")]
         public async Task<ActionResult<AuthResponseDto>> CreateUser(CreateUserCommand command)
         {
@@ -27,6 +35,11 @@ namespace Identity.Api.Controllers
             return Ok(result.Value);
         }
 
+        /// <summary>
+        /// Sign in account
+        /// </summary>
+        /// <param name="command">Sign in user command</param>
+        /// <returns>Auth response dto</returns>
         [HttpPost("signin")]
         public async Task<ActionResult<AuthResponseDto>> SignInUser(SigninUserCommand command)
         {
@@ -37,6 +50,11 @@ namespace Identity.Api.Controllers
             return Ok(result.Value);
         }
 
+        /// <summary>
+        /// Get user
+        /// </summary>
+        /// <param name="id">User identity</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUser(Guid id)
         {
