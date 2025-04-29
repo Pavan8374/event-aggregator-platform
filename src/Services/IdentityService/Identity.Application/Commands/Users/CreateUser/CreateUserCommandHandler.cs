@@ -11,6 +11,9 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Identity.Application.Commands.Users.CreateUser
 {
+    /// <summary>
+    /// Create user command handler
+    /// </summary>
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result<AuthResponseDto>>
     {
         private readonly IUserRepository _userRepository;
@@ -24,6 +27,12 @@ namespace Identity.Application.Commands.Users.CreateUser
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Handle async
+        /// </summary>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Auth response dto</returns>
         public async Task<Result<AuthResponseDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             try
