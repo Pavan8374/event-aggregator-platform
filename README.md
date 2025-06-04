@@ -1,5 +1,4 @@
-![Architecture Flow](![image](https://github.com/user-attachments/assets/a4d42f8d-32a3-4c5b-9eca-6f0c72816288)
-)
+<img src="https://github.com/user-attachments/assets/a4d42f8d-32a3-4c5b-9eca-6f0c72816288" alt="">
 
 # Event Aggregator Platform
 
