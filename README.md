@@ -1,4 +1,5 @@
-![Architecture Flow](https://media-hosting.imagekit.io//437aa988320a41e8/ArchitectureFlow.png?Expires=1834122579&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=v-iN12AEjUAs6p~it1r4TbuJfeuaFMQxh8nV8e5TkYM-HQpn5glqOigGo3fQKtF3jpafqzeoyhyhfvosD4fs2lGQp2K9qHroAzToz6wa3NB2LAdI26GwpdYlI5rBAxprymMVYxGUdhvtjo-awiKOAny2~RkKNZFrsiPieOkzNEG9gJr5bp2GCecef-cDFimGTHdSv82wATSA03KGoE~jTIm6Stc5a18qUX3b7chzhANK1MVSK1TuHkhDXu-Pj63R1R6ol02RCVo134JMqfMndoJdXrcYXZaodOe7H4sxHJgOBORuBaz4V7MvEeaphK13BIF8LRpKkmE-cVykE68uYQ__)
+![Architecture Flow](![image](https://github.com/user-attachments/assets/a4d42f8d-32a3-4c5b-9eca-6f0c72816288)
+)
 
 # Event Aggregator Platform
 
