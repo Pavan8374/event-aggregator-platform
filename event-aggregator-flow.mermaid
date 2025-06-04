@@ -1,0 +1,70 @@
+flowchart TB
+    Client([Client/Frontend])
+    ApiGw[API Gateway<br>REST/GraphQL]
+    EventBus[(Event Bus<br>RabbitMQ/Kafka)]
+    
+    subgraph Authentication
+        Identity[Identity Service]
+        DB1[(PostgreSQL)]
+    end
+    
+    subgraph Events
+        EventMgmt[Event Management<br>Service]
+        DB2[(PostgreSQL)]
+    end
+    
+    subgraph Registration
+        RegService[Registration Service]
+        DB3[(PostgreSQL)]
+    end
+    
+    subgraph Ticketing
+        TicketService[Ticketing Service]
+        CheckIn[Check-in Service]
+    end
+    
+    subgraph Support
+        Analytics[Analytics Service]
+        Notification[Notification Service]
+        Payment[Payment Service]
+    end
+    
+    %% Main flows
+    Client --> ApiGw
+    ApiGw --> Identity
+    ApiGw --> EventMgmt
+    ApiGw --> RegService
+    ApiGw --> Payment
+    
+    %% Database connections
+    Identity --> DB1
+    EventMgmt --> DB2
+    RegService --> DB3
+    
+    %% Event bus publications
+    Identity -- UserRegisteredEvent --> EventBus
+    EventMgmt -- EventCreatedEvent --> EventBus
+    RegService -- UserRegisteredForEvent --> EventBus
+    
+    %% Event bus subscriptions
+    EventBus --> Analytics
+    EventBus --> Notification
+    
+    %% gRPC communications
+    TicketService <--> CheckIn
+    Payment <--> TicketService
+    
+    %% External payment gateway
+    Payment -- API --> PaymentGw[Payment Gateway<br>Stripe/Razorpay]
+    
+    %% Style definitions
+    classDef gateway fill:#f9f,stroke:#333,stroke-width:2px
+    classDef service fill:#bbf,stroke:#333,stroke-width:1px
+    classDef database fill:#dfd,stroke:#333,stroke-width:1px
+    classDef eventBus fill:#ffb,stroke:#333,stroke-width:2px
+    
+    %% Apply styles
+    class ApiGw gateway
+    class Identity,EventMgmt,RegService,TicketService,CheckIn,Analytics,Notification,Payment service
+    class DB1,DB2,DB3 database
+    class EventBus eventBus

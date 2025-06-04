@@ -47,6 +47,7 @@ namespace Identity.Application.Commands.Users.CreateUser
                 if(request.IsOrganizer)
                     roleId = RoleType.Organizer.Id;
                     roleName = RoleType.Organizer.ToString();
+
                 // Create new user
                 var user = User.Create(
                     request.FirstName,
